@@ -1,0 +1,25 @@
+# IDEs e Sistema
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+.settings/
+.classpath
+.project
+.DS_Store
+
+# Maven / Java
+**/target/
+**/build/
+.mvn/
+mvnw
+mvnw.cmd
+
+# Configurações Sensíveis
+**/src/main/resources/application.properties
+
+# Frontend
+**/node_modules/
+**/dist/
+.env
