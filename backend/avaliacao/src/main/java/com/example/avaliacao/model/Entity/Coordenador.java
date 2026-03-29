@@ -1,5 +1,6 @@
 package com.example.avaliacao.model.Entity;
 
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -13,17 +14,26 @@ public class Coordenador {
     private String nome;
     private String matricula;
     private String email;
+    @JsonIgnore
+    private String senha;
     @OneToMany(mappedBy = "coordenador")
+    @JsonManagedReference
+    @JsonIdentityInfo(
+            generator = ObjectIdGenerators.PropertyGenerator.class,
+            property = "id")
     private List<Aluno> alunos = new ArrayList<>();
 
     @OneToMany(mappedBy = "coordenador")
+    @JsonManagedReference
     private List<Professor> professores = new ArrayList<>();
 
     //Construtor
     public Coordenador(){}
-    public Coordenador(String nome, String email){
-        this.nome = nome;
-        this.email = email;
+    public Coordenador(String nome, String email, String senha, String matricula){
+        setNome(nome);
+        setEmail(email);
+        setMatricula(matricula);
+        setSenha(senha);
     }
     //Gett and Sett
 
@@ -34,6 +44,8 @@ public class Coordenador {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public void setId(Long id) {this.id = id;}
 
     public Long getId() {
         return id;
@@ -63,4 +75,11 @@ public class Coordenador {
         return professores;
     }
 
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
 }

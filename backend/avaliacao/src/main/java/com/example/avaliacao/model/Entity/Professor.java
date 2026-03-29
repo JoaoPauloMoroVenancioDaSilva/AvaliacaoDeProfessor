@@ -1,4 +1,8 @@
 package com.example.avaliacao.model.Entity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -11,23 +15,31 @@ public class Professor {
     private String nome;
     private String matricula;
     private String email;
+    @JsonIgnore
+    private String senha;
 
     @ManyToMany(mappedBy = "professores")
     private List<Aluno> alunos = new ArrayList<>();
     @ManyToOne
     @JoinColumn(name = "coordenador_id")
+    @JsonBackReference
+    @JsonIgnoreProperties({"alunos", "professores"})
     private Coordenador coordenador;
 
     //Construtor
 
     public Professor(){}
-    public Professor(String nome, String email, Coordenador coordenador){
-        this.nome = nome;
-        this.email = email;
-        this.coordenador = coordenador;
+    public Professor(String nome, String email, Coordenador coordenador, String senha, String matricula){
+        setNome(nome);
+        setEmail(email);
+        setMatricula(matricula);
+        setCoordenador(coordenador);
+        setSenha(senha);
     }
     //Gett and Sett
-
+    public void setId(Long id) {
+        this.id = id;
+    }
     public Long getId() {
         return id;
     }
@@ -66,5 +78,13 @@ public class Professor {
 
     public void setCoordenador(Coordenador coordenador) {
         this.coordenador = coordenador;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 }
