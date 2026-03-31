@@ -7,6 +7,7 @@ import com.example.avaliacao.model.repository.AlunoRepository;
 import com.example.avaliacao.model.repository.CoordenadorRepository;
 import com.example.avaliacao.model.repository.ProfessorRepository;
 import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -58,7 +59,6 @@ public class ProfessorService {
             professor.setCoordenador(novoCoordenador);
         }
         return professorRepository.save(professor);
-
     }
 
     @Transactional
