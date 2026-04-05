@@ -64,11 +64,28 @@ public class AvaliacaoService {
         }
     }
 
+    @Transactional
+    public Avaliacao atualizar(Long id, AvaliacaoDTO avaliacaoDTO){
+        Avaliacao avaliacao = avaliacaoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Avaliação não encontrada"));
+        avaliacao.setNota(avaliacaoDTO.getNota());
+        avaliacao.setComentario(avaliacaoDTO.getComentario());
+        return avaliacaoRepository.save(avaliacao);
+    }
+
     public List<Avaliacao> buscarAvaliacoesDoProfessor(Long professorId) {
         return avaliacaoRepository.findByProfessorAvaliadoId(professorId);
     }
 
     public List<Avaliacao> buscarAvaliacoesDoAluno(Long alunoId) {
         return avaliacaoRepository.findByAlunoAvaliadoId(alunoId);
+    }
+
+    @Transactional
+    public void deletar(Long id) {
+        if (!avaliacaoRepository.existsById(id)) {
+            throw new RuntimeException("Não é possível deletar: Avaliação não encontrada.");
+        }
+        avaliacaoRepository.deleteById(id);
     }
 }
