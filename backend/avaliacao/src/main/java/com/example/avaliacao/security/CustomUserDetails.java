@@ -10,9 +10,11 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class CustomUserDetails implements UserDetailsService {
 
     private final ProfessorRepository professorRepo;
@@ -38,7 +40,7 @@ public class CustomUserDetails implements UserDetailsService {
 
         if (professor.isPresent()) {
 
-            Professor p = professor.get();
+            Professor p = professor.orElse(null);
 
             return User.builder()
                     .username(p.getEmail())
@@ -52,7 +54,7 @@ public class CustomUserDetails implements UserDetailsService {
 
         if (aluno.isPresent()) {
 
-            Aluno a = aluno.get();
+            Aluno a = aluno.orElse(null);
 
             return User.builder()
                     .username(a.getEmail())
@@ -66,7 +68,7 @@ public class CustomUserDetails implements UserDetailsService {
 
         if (coordenador.isPresent()) {
 
-            Coordenador c = coordenador.get();
+            Coordenador c = coordenador.orElse(null);
 
             return User.builder()
                     .username(c.getEmail())
