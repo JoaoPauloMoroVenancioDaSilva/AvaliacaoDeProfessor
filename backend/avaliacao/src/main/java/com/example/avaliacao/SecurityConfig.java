@@ -1,4 +1,4 @@
-package com.example.avaliacao.config;
+package com.example.avaliacao;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
