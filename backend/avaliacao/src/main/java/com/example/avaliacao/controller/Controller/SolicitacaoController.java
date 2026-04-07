@@ -18,32 +18,20 @@ public class SolicitacaoController {
     //Create aluno
     @PostMapping("/requisitar/{alunoId}/{professorId}")
     public ResponseEntity<String> criarSolicitacao(@PathVariable Long alunoId, @PathVariable Long professorId) {
-        try {
-            solicitacaoService.criarSolicitacao(alunoId, professorId);
-            return ResponseEntity.ok("Solicitação enviada com sucesso! Aguarde a aprovação do coordenador.");
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        solicitacaoService.criarSolicitacao(alunoId, professorId);
+        return ResponseEntity.ok("Solicitação enviada com sucesso! Aguarde a aprovação do coordenador.");
     }
     //Aprova coordenador
     @PutMapping("/aprovar/{solicitacaoId}/{coordenadorId}")
     public ResponseEntity<String> aprovarSolicitacao(@PathVariable Long solicitacaoId, @PathVariable Long coordenadorId) {
-        try {
-            solicitacaoService.aprovarSolicitacao(solicitacaoId, coordenadorId);
-            return ResponseEntity.ok("Solicitação aprovada! O vínculo entre aluno e professor foi criado.");
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        solicitacaoService.aprovarSolicitacao(solicitacaoId, coordenadorId);
+        return ResponseEntity.ok("Solicitação aprovada! O vínculo entre aluno e professor foi criado.");
     }
     //Deleta coordenador
     @DeleteMapping("/recusar/{solicitacaoId}/{coordenadorId}")
     public ResponseEntity<String> recusarSolicitacao(@PathVariable Long solicitacaoId, @PathVariable Long coordenadorId) {
-        try {
-            solicitacaoService.removerSolicitacao(solicitacaoId, coordenadorId);
-            return ResponseEntity.ok("Solicitação recusada e removida do banco.");
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        solicitacaoService.removerSolicitacao(solicitacaoId, coordenadorId);
+        return ResponseEntity.ok("Solicitação recusada e removida do banco.");
     }
     @GetMapping
     public ResponseEntity<List<SolicitacaoProf>> listar() {
