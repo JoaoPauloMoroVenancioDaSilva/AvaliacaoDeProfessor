@@ -40,9 +40,9 @@ public class FilterChain {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorization -> {
                     authorization.requestMatchers(HttpMethod.POST, "/api/login").permitAll();
-                    authorization.requestMatchers(HttpMethod.POST, "/api/coordenadores/**").hasRole("COORDENADOR");
-                    authorization.requestMatchers(HttpMethod.POST, "/api/professor/**").hasRole("PROFESSOR");
-                    authorization.requestMatchers(HttpMethod.POST, "/api/alunos/**").hasRole("ALUNO");
+                    authorization.requestMatchers(HttpMethod.POST, "/api/coordenadores/**").permitAll();
+                    authorization.requestMatchers(HttpMethod.POST, "/api/professor/**").permitAll();
+                    authorization.requestMatchers(HttpMethod.POST, "/api/alunos/**").permitAll();
                     authorization.requestMatchers(HttpMethod.POST, "/api/avaliacoes").hasAnyRole("COORDENADOR", "PROFESSOR");
                     authorization.anyRequest().authenticated();
                 })
