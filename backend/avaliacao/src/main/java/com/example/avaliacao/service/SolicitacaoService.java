@@ -32,13 +32,13 @@ public class SolicitacaoService {
 
 
         Aluno aluno = alunoRepository.findById(alunoId)
-                .orElseThrow(() -> new RuntimeException("Aluno não encontrado."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aluno não encontrado."));
 
         Professor professor = professorRepository.findById(professorId)
-                .orElseThrow(() -> new RuntimeException("Professor não encontrado."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Professor não encontrado."));
 
         if (solicitacaoProfRepository.existsByAlunoAndProfessor(aluno, professor)) {
-            throw new RuntimeException("Você já tem uma solicitação em andamento para este professor.");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Você já tem uma solicitação em andamento para este professor.");
         }
 
         SolicitacaoProf solicitacao = new SolicitacaoProf();
@@ -53,10 +53,10 @@ public class SolicitacaoService {
     @Transactional
     public void aprovarSolicitacao(Long solicitacaoId, Long coordenadorId) {
         coordenadorRepository.findById(coordenadorId)
-                .orElseThrow(() -> new RuntimeException("Coordenador não encontrado."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Coordenador não encontrado."));
 
         SolicitacaoProf solicitacao = solicitacaoProfRepository.findById(solicitacaoId)
-                .orElseThrow(() -> new RuntimeException("Solicitação não encontrada."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Solicitação não encontrada."));
         solicitacao.setAprovada(true);
 
         Aluno aluno = solicitacao.getAluno();
@@ -74,10 +74,10 @@ public class SolicitacaoService {
     @Transactional
     public void removerSolicitacao(Long solicitacaoId, Long coordenadorId) {
         coordenadorRepository.findById(coordenadorId)
-                .orElseThrow(() -> new RuntimeException("Coordenador não encontrado."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Coordenador não encontrado."));
 
         SolicitacaoProf solicitacao = solicitacaoProfRepository.findById(solicitacaoId)
-                .orElseThrow(() -> new RuntimeException("Solicitação não encontrada."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Solicitação não encontrada."));
 
 
         Aluno aluno = solicitacao.getAluno();
