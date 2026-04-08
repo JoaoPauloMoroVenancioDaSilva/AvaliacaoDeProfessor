@@ -56,18 +56,6 @@ public class FilterChain {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(
-            ProfessorRepository professorRepo,
-            AlunoRepository alunoRepo,
-            CoordenadorRepository coordenadorRepo) {
-
-        return new CustomUserDetails(
-                professorRepo,
-                alunoRepo,
-                coordenadorRepo);
-    }
-
-    @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
