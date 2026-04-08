@@ -27,12 +27,23 @@ public class AuthenticationController {
 
 
     @PostMapping
-    public ResponseEntity<TokenDTO> efetuarLogin (@RequestBody LoginDTO dados) {
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(dados.getEmail(),
-                dados.getSenha());
-        Authentication auth = manager.authenticate(authenticationToken);
-        String token = tokenService.gerarToken((UserDetails) auth.getPrincipal());
+    public ResponseEntity<?> efetuarLogin (@RequestBody LoginDTO dados) {
+        try {
+            System.out.println("E-mail que chegou do front: " + dados.getEmail());
+            System.out.println("Senha que chegou do front: " + dados.getSenha());
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                    dados.getEmail(),
+                    dados.getSenha()
+            );
 
-        return ResponseEntity.ok(new TokenDTO(token));
+            Authentication auth = manager.authenticate(authenticationToken);
+            String token = tokenService.gerarToken((UserDetails) auth.getPrincipal());
+
+            return ResponseEntity.ok(new TokenDTO(token));
+
+        } catch (Exception e) {
+            //se a senha ou email estiverem errados, ele captura o erro e devolve o Status 401
+            return ResponseEntity.status(401).body("Erro de autenticação: Credenciais inválidas.");
+        }
     }
 }

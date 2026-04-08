@@ -5,6 +5,7 @@ import com.example.avaliacao.model.Entity.Coordenador;
 import com.example.avaliacao.model.repository.CoordenadorRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,12 +16,18 @@ public class CoordenadorService {
     @Autowired
     private CoordenadorRepository coordenadorRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Transactional
     public Coordenador cadastrar(CoordenadorDTO dto) {
         Coordenador coordenador = new Coordenador();
         coordenador.setNome(dto.getNome());
         coordenador.setEmail(dto.getEmail());
-        coordenador.setSenha(dto.getSenha());
+
+        //o Spring criptografar a senha sozinho
+        coordenador.setSenha(passwordEncoder.encode(dto.getSenha()));
+
         coordenador.setMatricula(dto.getMatricula());
 
         return coordenadorRepository.save(coordenador);

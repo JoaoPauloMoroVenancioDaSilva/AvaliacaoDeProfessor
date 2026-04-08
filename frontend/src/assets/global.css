@@ -1,0 +1,100 @@
+/* src/assets/global.css */
+:root {
+  --dorfic-white: #FFFFFF;
+  --dorfic-light-gray: #F0F2F5;
+  --dorfic-orange: #FF6600; 
+  --dorfic-dark: #222222;
+}
+
+body {
+  background-color: var(--dorfic-light-gray);
+  color: var(--dorfic-dark);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/*base das telas*/
+.container, .login-container {
+  background: var(--dorfic-white);
+  border-top: 4px solid var(--dorfic-orange);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border-radius: 4px;
+  padding: 2rem;
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+/*estilo das tabelas*/
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background-color: var(--dorfic-white);
+}
+
+th {
+  background-color: var(--dorfic-light-gray);
+  color: var(--dorfic-dark);
+  text-align: left;
+  padding: 12px;
+  border-bottom: 2px solid var(--dorfic-orange);
+}
+
+td {
+  padding: 12px;
+  border-bottom: 1px solid #E0E0E0;
+}
+
+/*botões*/
+button {
+  background-color: var(--dorfic-orange);
+  color: var(--dorfic-white);
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #E65C00;
+}
+
+/* formulário*/
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #CCC;
+  border-radius: 4px;
+  background-color: #FAFAFA;
+  box-sizing: border-box;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--dorfic-orange);
+  box-shadow: 0 0 5px rgba(255, 102, 0, 0.3);
+}
+
+/*menu de navegação*/
+header nav {
+  display: flex;
+  gap: 15px;
+}
+
+header nav a {
+  text-decoration: none;
+  color: var(--dorfic-dark);
+  font-weight: bold;
+  padding: 5px 10px;
+}
+
+header nav a.router-link-exact-active {
+  color: var(--dorfic-orange);
+  border-bottom: 2px solid var(--dorfic-orange);
+}
