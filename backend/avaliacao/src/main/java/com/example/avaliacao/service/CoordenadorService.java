@@ -36,7 +36,7 @@ public class CoordenadorService {
     @Transactional
     public Coordenador atualizar(Long id, CoordenadorDTO dto) {
         Coordenador coordenador = coordenadorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Coordenador não encontrado."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Coordenador não encontrado."));
 
         coordenador.setNome(dto.getNome());
         coordenador.setEmail(dto.getEmail());
@@ -49,7 +49,7 @@ public class CoordenadorService {
     @Transactional
     public void deletar(Long id) {
         if (!coordenadorRepository.existsById(id)) {
-            throw new RuntimeException("Coordenador não encontrado.");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Coordenador não encontrado.");
         }
         coordenadorRepository.deleteById(id);
     }
