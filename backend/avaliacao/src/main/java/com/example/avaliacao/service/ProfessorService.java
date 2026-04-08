@@ -26,7 +26,7 @@ public class ProfessorService {
     @Transactional
     public Professor cadastrar(ProfessorDTO dto, Long coordenadorId) {
         Coordenador coordenador = coordenadorRepository.findById(coordenadorId)
-                .orElseThrow(() -> new RuntimeException("Coordenador não encontrado."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Coordenador não encontrado."));
         Professor professor = new Professor();
         professor.setNome(dto.getNome());
         professor.setEmail(dto.getEmail());
@@ -40,13 +40,13 @@ public class ProfessorService {
     @Transactional
     public Professor atualizar(Long professorId, ProfessorDTO dto, Long autorId) {
         Professor professor = professorRepository.findById(professorId)
-                .orElseThrow(() -> new RuntimeException("Professor não encontrado."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Professor não encontrado."));
 
         boolean ehProfessor = professorId.equals(autorId);
         boolean ehCoordenador = coordenadorRepository.existsById(autorId);
 
         if (!ehProfessor && !ehCoordenador) {
-            throw new RuntimeException("Acesso negado:");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Acesso negado:");
         }
 
         professor.setNome(dto.getNome());
@@ -55,7 +55,7 @@ public class ProfessorService {
         if (ehCoordenador) {
             professor.setMatricula(dto.getMatricula());
             Coordenador novoCoordenador = coordenadorRepository.findById(dto.getCoordenadorId())
-                    .orElseThrow(() -> new RuntimeException("Coordenador  não encontrado."));
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Coordenador  não encontrado."));
             professor.setCoordenador(novoCoordenador);
         }
         return professorRepository.save(professor);
@@ -78,11 +78,11 @@ public class ProfessorService {
 
     private void validarCoordenador(Long coordenadorId) {
         coordenadorRepository.findById(coordenadorId)
-                .orElseThrow(() -> new RuntimeException("Coordenador não encontrado."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Coordenador não encontrado."));
     }
     private void validarAluno(Long alunoId) {
         alunoRepository.findById(alunoId)
-                .orElseThrow(() -> new RuntimeException("Aluno não encontrado."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aluno não encontrado."));
     }
     private void validarProfessor(Long professorId) {
         professorRepository.findById(professorId)
