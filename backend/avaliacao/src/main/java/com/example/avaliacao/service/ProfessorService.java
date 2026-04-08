@@ -86,6 +86,6 @@ public class ProfessorService {
     }
     private void validarProfessor(Long professorId) {
         professorRepository.findById(professorId)
-                .orElseThrow(() -> new RuntimeException("Professor não encontrado."));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Professor não encontrado."));
     }
 }
