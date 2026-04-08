@@ -22,7 +22,7 @@ public class SecurityFilter  extends OncePerRequestFilter {
     private TokenService tokenService;
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private CustomUserDetails userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -32,7 +32,9 @@ public class SecurityFilter  extends OncePerRequestFilter {
             String login = tokenService.validarToken(token);
             if (login != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails usuario = userDetailsService.loadUserByUsername(login);
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(usuario, null, usuario.getAuthorities());
+                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(usuario,
+                        null,
+                        usuario.getAuthorities());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         }
