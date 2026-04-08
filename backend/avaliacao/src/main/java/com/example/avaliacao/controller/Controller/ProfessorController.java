@@ -18,12 +18,8 @@ public class    ProfessorController {
 
     @PostMapping
     public ResponseEntity<?> cadastrar(@RequestBody ProfessorDTO dto) {
-        try {
-            Professor professor = professorService.cadastrar(dto, dto.getCoordenadorId());
-            return ResponseEntity.ok(professor);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        Professor professor = professorService.cadastrar(dto, dto.getCoordenadorId());
+        return ResponseEntity.ok(professor);
     }
 
     // Listar todos os Professores
@@ -34,22 +30,14 @@ public class    ProfessorController {
 
     @PutMapping("/{id}/{autorId}")
     public ResponseEntity<?> atualizar(@PathVariable Long id, @PathVariable Long autorId, @RequestBody ProfessorDTO dto) {
-        try {
-            Professor professorAtualizado = professorService.atualizar(id, dto, autorId);
-            return ResponseEntity.ok(professorAtualizado);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        Professor professorAtualizado = professorService.atualizar(id, dto, autorId);
+        return ResponseEntity.ok(professorAtualizado);
     }
 
     // Deletar Professor (Ação do Coordenador)
     @DeleteMapping("/{id}/{coordenadorId}")
     public ResponseEntity<?> deletar(@PathVariable Long id, @PathVariable Long coordenadorId) {
-        try {
-            professorService.deletar(id, coordenadorId);
-            return ResponseEntity.ok("Professor removido com sucesso.");
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        professorService.deletar(id, coordenadorId);
+        return ResponseEntity.ok("Professor removido com sucesso.");
     }
 }
