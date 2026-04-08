@@ -33,11 +33,11 @@ public class AvaliacaoService {
 
             //busca o aluno avaliador
             Aluno avaliador = alunoRepository.findById(dto.getAvaliadorId())
-                    .orElseThrow(() -> new RuntimeException("Aluno avaliador não encontrado."));
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aluno avaliador não encontrado."));
 
             //busca o professor que está sendo avaliado
             Professor avaliado = professorRepository.findById(dto.getAvaliadoId())
-                    .orElseThrow(() -> new RuntimeException("Professor avaliado não encontrado."));
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Professor avaliado não encontrado."));
 
             //(nota, comentario, Aluno avaliador, Professor avaliado)
             Avaliacao avaliacao = new Avaliacao(dto.getNota(), dto.getComentario(), avaliador, avaliado);
@@ -48,11 +48,11 @@ public class AvaliacaoService {
 
             //busca o professor avaliador
             Professor avaliador = professorRepository.findById(dto.getAvaliadorId())
-                    .orElseThrow(() -> new RuntimeException("Professor avaliador não encontrado."));
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Professor avaliador não encontrado."));
 
             //busca o aluno que está sendo avaliado
             Aluno avaliado = alunoRepository.findById(dto.getAvaliadoId())
-                    .orElseThrow(() -> new RuntimeException("Aluno avaliado não encontrado."));
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Aluno avaliado não encontrado."));
 
             //(nota, comentario, Professor avaliador, Aluno avaliado)
             Avaliacao avaliacao = new Avaliacao(dto.getNota(), dto.getComentario(), avaliador, avaliado);
@@ -60,14 +60,14 @@ public class AvaliacaoService {
             return avaliacaoRepository.save(avaliacao);
         } else {
             //se o front-end mandar qualquer coisa diferente de "ALUNO" ou "PROFESSOR", bloqueia a requisição
-            throw new RuntimeException("Tipo de avaliador inválido. Envie 'ALUNO' ou 'PROFESSOR'.");
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Tipo de avaliador inválido. Envie 'ALUNO' ou 'PROFESSOR'.");
         }
     }
 
     @Transactional
     public Avaliacao atualizar(Long id, AvaliacaoDTO avaliacaoDTO){
         Avaliacao avaliacao = avaliacaoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Avaliação não encontrada"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Avaliação não encontrada"));
         avaliacao.setNota(avaliacaoDTO.getNota());
         avaliacao.setComentario(avaliacaoDTO.getComentario());
         return avaliacaoRepository.save(avaliacao);
