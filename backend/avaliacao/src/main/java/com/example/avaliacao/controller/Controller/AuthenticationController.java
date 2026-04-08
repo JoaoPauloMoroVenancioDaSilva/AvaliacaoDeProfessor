@@ -27,7 +27,7 @@ public class AuthenticationController {
 
 
     @PostMapping
-    public ResponseEntity<?> efetuarLogin (@RequestBody LoginDTO dados) {
+    public ResponseEntity<TokenDTO> efetuarLogin (@RequestBody LoginDTO dados) {
         try {
             System.out.println("E-mail que chegou do front: " + dados.getEmail());
             System.out.println("Senha que chegou do front: " + dados.getSenha());
@@ -43,7 +43,7 @@ public class AuthenticationController {
 
         } catch (Exception e) {
             //se a senha ou email estiverem errados, ele captura o erro e devolve o Status 401
-            return ResponseEntity.status(401).body("Erro de autenticação: Credenciais inválidas.");
+            return ResponseEntity.status(401).body(new TokenDTO("Erro de autenticação: Credenciais inválidas."));
         }
     }
 }
