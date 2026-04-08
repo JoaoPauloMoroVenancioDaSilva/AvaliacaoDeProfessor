@@ -7,6 +7,8 @@ import com.example.avaliacao.model.repository.AlunoRepository;
 import com.example.avaliacao.model.repository.CoordenadorRepository;
 import com.example.avaliacao.model.repository.ProfessorRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
