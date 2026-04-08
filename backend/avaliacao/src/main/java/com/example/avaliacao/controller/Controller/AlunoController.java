@@ -20,7 +20,6 @@ public class AlunoController {
     public ResponseEntity<?> cadastrar(@RequestBody AlunoDTO dto) {
         Aluno aluno = alunoService.cadastrar(dto);
         return ResponseEntity.ok(aluno);
-        }
     }
 
     @GetMapping
