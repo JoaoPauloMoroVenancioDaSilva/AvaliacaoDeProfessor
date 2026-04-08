@@ -18,11 +18,8 @@ public class AlunoController {
 
     @PostMapping
     public ResponseEntity<?> cadastrar(@RequestBody AlunoDTO dto) {
-        try {
-            Aluno aluno = alunoService.cadastrar(dto);
-            return ResponseEntity.ok(aluno);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+        Aluno aluno = alunoService.cadastrar(dto);
+        return ResponseEntity.ok(aluno);
         }
     }
 
@@ -33,21 +30,13 @@ public class AlunoController {
 
     @PutMapping("/{id}/{autorId}")
     public ResponseEntity<?> atualizar(@PathVariable Long id, @PathVariable Long autorId, @RequestBody AlunoDTO dto) {
-        try {
-            Aluno alunoAtualizado = alunoService.atualizar(id, dto, autorId);
-            return ResponseEntity.ok(alunoAtualizado);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        Aluno alunoAtualizado = alunoService.atualizar(id, dto, autorId);
+        return ResponseEntity.ok(alunoAtualizado);
     }
 
     @DeleteMapping("/{id}/{coordenadorId}")
     public ResponseEntity<?> deletar(@PathVariable Long id, @PathVariable Long coordenadorId) {
-        try {
-            alunoService.deletar(id, coordenadorId);
-            return ResponseEntity.ok("Aluno removido com sucesso.");
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        alunoService.deletar(id, coordenadorId);
+        return ResponseEntity.ok("Aluno removido com sucesso.");
     }
 }
