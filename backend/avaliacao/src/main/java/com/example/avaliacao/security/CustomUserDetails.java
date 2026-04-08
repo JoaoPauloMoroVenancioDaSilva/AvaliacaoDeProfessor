@@ -6,6 +6,7 @@ import com.example.avaliacao.model.Entity.Professor;
 import com.example.avaliacao.model.repository.AlunoRepository;
 import com.example.avaliacao.model.repository.CoordenadorRepository;
 import com.example.avaliacao.model.repository.ProfessorRepository;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
