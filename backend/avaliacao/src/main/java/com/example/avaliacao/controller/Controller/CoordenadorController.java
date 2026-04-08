@@ -28,20 +28,12 @@ public class CoordenadorController {
 
     @PutMapping("/{id}")
     public ResponseEntity<?> atualizar(@PathVariable Long id, @RequestBody CoordenadorDTO dto) {
-        try {
-            return ResponseEntity.ok(coordenadorService.atualizar(id, dto));
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        return ResponseEntity.ok(coordenadorService.atualizar(id, dto));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deletar(@PathVariable Long id) {
-        try {
-            coordenadorService.deletar(id);
-            return ResponseEntity.ok("Coordenador removido com sucesso.");
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        coordenadorService.deletar(id);
+        return ResponseEntity.ok("Coordenador removido com sucesso.");
     }
 }

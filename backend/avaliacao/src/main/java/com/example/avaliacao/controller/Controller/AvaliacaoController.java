@@ -18,11 +18,8 @@ public class AvaliacaoController {
 
     @PostMapping
     public ResponseEntity<AvaliacaoDTO> criarAvaliacao(@RequestBody AvaliacaoDTO avaliacaoDTO) {
-        try {
-            Avaliacao novaAvaliacao = avaliacaoService.salvar(avaliacaoDTO);
-            return new ResponseEntity<>(HttpStatus.CREATED);
-        } catch (RuntimeException e) {}
-        return  ResponseEntity.badRequest().body(null);
+        Avaliacao novaAvaliacao = avaliacaoService.salvar(avaliacaoDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @GetMapping("/professor/{id}")
@@ -39,21 +36,13 @@ public class AvaliacaoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Avaliacao> atualizar(@PathVariable Long id, @RequestBody AvaliacaoDTO dto) {
-        try {
-            Avaliacao atualizada = avaliacaoService.atualizar(id, dto);
-            return ResponseEntity.ok(atualizada);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        Avaliacao atualizada = avaliacaoService.atualizar(id, dto);
+        return ResponseEntity.ok(atualizada);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        try {
-            avaliacaoService.deletar(id);
-            return ResponseEntity.noContent().build();
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        avaliacaoService.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }
